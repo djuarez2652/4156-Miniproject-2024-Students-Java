@@ -15,6 +15,9 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration
 public class DepartmentUnitTests {
 
+  /**
+   * Runs before all tests which sets up the dummy data/objects used during testing.
+   */
   @BeforeAll
   public static void setupDepartmentForTesting() {
     HashMap<String, Course> courses = new HashMap<>();
@@ -53,6 +56,6 @@ public class DepartmentUnitTests {
 
 
 
-  /* The test department instance used for testing. */
+  /** The test department instance used for testing. */
   public static Department testDepartment;
 }
