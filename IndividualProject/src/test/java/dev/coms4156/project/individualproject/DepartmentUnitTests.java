@@ -21,6 +21,12 @@ public class DepartmentUnitTests {
   @BeforeAll
   public static void setupDepartmentForTesting() {
     HashMap<String, Course> courses = new HashMap<>();
+    Course coms1004 = new Course("Adam Cannon", "417 IAB", "11:40-12:55", 400);
+    coms1004.setEnrolledStudentCount(249);
+    Course coms3134 = new Course("Brian Borowski", "417 IAB", "11:40-12:55", 250);
+    coms3134.setEnrolledStudentCount(242);
+    courses.put("1004", coms1004);
+    courses.put("3134", coms3134);
     String deptCode = "COMS";
     String departmentChair = "John Doe";
     int numberOfMajors = 2700;
@@ -52,6 +58,15 @@ public class DepartmentUnitTests {
     int expectedResult = testDepartment.getNumberOfMajors() - 1;
     testDepartment.dropPersonFromMajor();
     assertEquals(expectedResult, testDepartment.getNumberOfMajors());
+  }
+
+  @Test
+  public void toStringTest() {
+    String expectedResult = "COMS 1004: \n" +
+            "Instructor: Adam Cannon; Location: 417 IAB; Time: 11:40-12:55\n" +
+            "COMS 3134: \n" +
+            "Instructor: Brian Borowski; Location: 417 IAB; Time: 11:40-12:55\n";
+    assertEquals(expectedResult, testDepartment.toString());
   }
 
 

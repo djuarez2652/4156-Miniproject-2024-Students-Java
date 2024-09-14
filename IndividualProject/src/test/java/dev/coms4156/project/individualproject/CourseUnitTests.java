@@ -44,6 +44,28 @@ public class CourseUnitTests {
     assertEquals(expectedResult, testCourse.getCourseTimeSlot());
   }
 
+  @Test
+  public void isCourseFullWhenEmptyTest() {
+    boolean expectedResult = false;
+    testCourse.setEnrolledStudentCount(0);
+    assertEquals(expectedResult, testCourse.isCourseFull());
+  }
+
+  @Test
+  public void isCourseFullFalseTest() {
+    boolean expectedResult = false;
+    testCourse.setEnrolledStudentCount(1);
+    assertEquals(expectedResult, testCourse.isCourseFull());
+  }
+
+  @Test
+  public void setEnrolledStudentCountPastCapacityTest() {
+    boolean expectedResult = false;
+    testCourse.setEnrolledStudentCount(100);
+    testCourse.setEnrolledStudentCount(300);
+    assertEquals(expectedResult, testCourse.isCourseFull());
+  }
+
   /** The test course instance used for testing. */
   public static Course testCourse;
 }

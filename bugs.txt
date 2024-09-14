@@ -1,0 +1,143 @@
+In this txt you should indicate
+
+
+
+
+Bugs found by static analyzer (PMD):
+
+******* BUGS FOUND WITH PMD *******
+1.
+    Rule: ConstructorCallsOverridableMethod
+    Violation: Overridable method called during object construction: MyFileDatabase.deSerializeObjectFromFile()
+    Description: Method used in constructor is overridable and it shouldn't be
+    Location: MyFileDatabase.java --> MyFileDatabase() constructor
+    Fix: Change deSerializeObjectFromFile() method from public to private
+
+2.
+    Rule: ReturnEmptyCollectionRatherThanNull
+    Violation: Return an empty collection rather than null
+    Description: Method returns null if an error is thrown even though its return type is a HashMap
+    Location: MyFileDatabase.java --> deSerializeObjectFromFile() method
+    Fix: Change return value from null to an empty HashMap
+
+3.
+    Rule: UnusedPrivateField
+    Violation: Avoid unused private fields such as 'departmentChair'
+    Description: Private field departmentChair is not used or returned
+    Location: Department.java --> at the end of the file
+    Fix: Change the return value of getDepartmentChair() to the departmentChair private field
+
+4. ******
+    Rule: AvoidDuplicateLiterals
+    Violation: The String literal "deptCode" appears 15 times in this file; the first occurrence is on line 40
+    Description: Repeated String literal should be substituted by a variable
+    Location: RouteController.java
+    Fix: Create private static final String "deptCode" and substitute as necessary
+
+5.
+    Rule: UseLocaleWithCaseConversions
+    Violation: When doing a String.toLowerCase()/toUpperCase() call, use a Locale
+    Description: See Violation.
+    Location: RouteController.java --> retrieveDepartment()
+    Fix: Import java.util.Locale and add parameter Locale=ENGLISH to toUpperCase()
+
+6.
+    Rule: AvoidDuplicateLiterals
+    Violation: The String literal "Department Not Found" appears 6 times in this file; the first occurrence is on line 46
+    Description: Repeated String literal should be substituted by a variable
+    Location: RouteController.java
+    Fix: Create private static final String "Department Not Found" and substitute as necessary
+
+7.
+    Rule: UseLocaleWithCaseConversions
+    Violation: When doing a String.toLowerCase()/toUpperCase() call, use a Locale
+    Description: See Violation.
+    Location: RouteController.java --> retrieveDepartment()
+    Fix: add parameter Locale=ENGLISH to toUpperCase()
+
+8.
+    Rule: AvoidDuplicateLiterals
+    Violation: The String literal "courseCode" appears 10 times in this file; the first occurrence is on line 74
+    Description: Repeated String literal should be substituted by a variable
+    Location: RouteController.java
+    Fix: Create private static final String "courseCode" and substitute as necessary
+
+9.
+    Rule: AvoidDuplicateLiterals
+    Violation: The String literal "Course Not Found" appears 10 times in this file; the first occurrence is on line 84
+    Description: Repeated String literal should be substituted by a variable
+    Location: RouteController.java
+    Fix: Create private static final String "Course Not Found" and substitute as necessary
+
+10.
+    Rule: UnusedLocalVariable
+    Violation: Avoid unused local variables such as 'requestedCourse'.
+    Description: requestedCourse variable is not used or returned
+    Location: RouteController.java --> findCourseTime()
+    Fix: Update the return value to include requestedCourse.getTimeSlot()
+
+11.
+    Rule: AvoidDuplicateLiterals
+    Violation: The String literal "Attributed was updated successfully." appears 4 times in this file;
+               the first occurrence is on line 430
+    Description: Repeated String literal should be substituted by a variable
+    Location: RouteController.java
+    Fix: Create private static final String "Attributed was updated successfully." and substitute as necessary
+
+
+******* BUGS FOUND WITH TESTS *******
+
+12.
+    Issue: getCourseLocation() returns instructorName and not the courseLocation
+    Location: Course.java --> getCourseLocation()
+    Fix: Change the return value to this.courseLocation
+
+13. *****
+    Issue: getInstructorName() returns courseLocation and not the instructorName
+    Location: Course.java --> getInstructorName()
+    Fix: Change the return value to this.instructorName
+
+14.
+    Issue: enrolledStudentCount is initialized to 500 in the constructor
+    Location: Course.java --> Course constructor
+    Fix: Set enrolledStudentCount to 0
+
+15.
+    Issue: isCourseFull logic is not correct
+    Location: Course.java --> isCourseFull()
+    Fix: Change return logic to enrolledStudentCount >= enrollmentCapacity
+
+16.
+    Issue: dropStudent allows for negative enrollment count
+    Location: Course.java --> dropStudent()
+    Fix: Change logic to prevent negative enrollment
+
+17.
+    Issue: enrollStudent allows students to enroll past the capacity
+    Location: Course.java --> enrollStudent()
+    Fix: Change logic to prevent students from enrolling past the capacity
+
+18.
+    Issue: setEnrolledStudentCount can be set to an invalid int
+    Location: Course.java --> setEnrolledStudentCount()
+    Fix: Change logic to prevent enrolledStudents from being invalid
+
+19.
+    Issue: getNumberOfMajors returns the negative of numberOfMajors
+    Location: Department.java --> getNumberOfMajors()
+    Fix: Remove the negative in the return value
+
+20.
+    Issue: toString doesn't return the correct String representation
+    Location: Department.java --> toString()
+    Fix: Return the result generated, not the String "result.toString()"
+
+21.
+    Issue: dropPersonFromMajor allows for negative number of majors
+    Location: Department.java --> dropPersonFromMajor()
+    Fix: Change logic to prevent negative number
+
+22.
+    Issue: getCourseSelection returns internal representation of HashMap
+    Location: Department.java --> getCourseSelection()
+    Fix: Return a different version of the HashMap
