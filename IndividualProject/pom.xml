@@ -31,6 +31,18 @@
 
 	<build>
 		<plugins>
+			<!--	Added PMD Plugin	-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.25.0</version>
+				<configuration>
+					<rulesets>
+						<ruleset>/category/java/errorprone.xml</ruleset>
+						<ruleset>/rulesets/java/maven-pmd-plugin-default.xml</ruleset>
+					</rulesets>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
