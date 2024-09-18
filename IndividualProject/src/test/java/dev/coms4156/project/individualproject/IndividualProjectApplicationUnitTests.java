@@ -1,7 +1,7 @@
 package dev.coms4156.project.individualproject;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -62,17 +62,73 @@ public class IndividualProjectApplicationUnitTests {
   }
 
   @Test
+  public void overrideDatabaseTest() {
+    boolean expectedSaveData = false;
+    Boolean saveData;
+
+    IndividualProjectApplication.overrideDatabase(mockDatabase);
+    saveData = getSaveData();
+    if (saveData == null) {
+      fail("Error in getting saveData value");
+    }
+
+    assertEquals(mockDatabase, IndividualProjectApplication.myFileDatabase);
+    assertEquals(expectedSaveData, saveData);
+  }
+
+  @Test
   public void onTerminationSaveDataFalseTest() {
+    Boolean prevSaveData = getSaveData();
+    if (prevSaveData == null) {
+      fail("Error in getting saveData value");
+    }
+
     setPrivateStaticField("saveData", false);
     app.onTermination();
+
     verify(mockDatabase, times(0)).saveContentsToFile();
+    setPrivateStaticField("saveData", prevSaveData);
   }
 
   @Test
   public void onTerminationSaveDataTrueTest() {
+    Boolean prevSaveData = getSaveData();
+    if (prevSaveData == null) {
+      fail("Error in getting saveData value");
+    }
+
     setPrivateStaticField("saveData", true);
     app.onTermination();
+
     verify(mockDatabase, times(1)).saveContentsToFile();
+    setPrivateStaticField("saveData", prevSaveData);
+  }
+
+  @Test
+  public void resetDataFileTest() {
+    app.resetDataFile();
+    verify(IndividualProjectApplication.myFileDatabase, times(1)).setMapping(any());
+  }
+
+  /**
+   * Attempts to retrieve the private static field saveData.
+   *
+   * @return      A {@code Boolean} of the private static field saveData.
+   */
+  private Boolean getSaveData() {
+    Field saveDataField = null;
+    try {
+      saveDataField = IndividualProjectApplication.class.getDeclaredField("saveData");
+      saveDataField.setAccessible(true);
+      Boolean value = (Boolean) saveDataField.get(null);
+      saveDataField.setAccessible(false);
+      return value;
+    } catch (Exception e) {
+      if (saveDataField != null) {
+        saveDataField.setAccessible(false);
+      }
+      return null;
+    }
   }
 
   /**
