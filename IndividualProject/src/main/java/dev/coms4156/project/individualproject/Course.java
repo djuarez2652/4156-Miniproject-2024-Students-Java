@@ -92,9 +92,8 @@ public class Course implements Serializable {
 
 
   public void setEnrolledStudentCount(int count) {
-    if (count >= 0 && count <= enrollmentCapacity) {
-      this.enrolledStudentCount = count;
-    }
+    this.enrolledStudentCount = count >= 0 && count <= enrollmentCapacity
+            ? count : this.enrolledStudentCount;
   }
 
 

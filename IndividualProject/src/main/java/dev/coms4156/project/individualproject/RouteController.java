@@ -2,7 +2,6 @@ package dev.coms4156.project.individualproject;
 
 import java.util.HashMap;
 import java.util.Locale;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,8 +46,9 @@ public class RouteController {
       if (!departmentMapping.containsKey(deptCode.toUpperCase(Locale.ENGLISH))) {
         return new ResponseEntity<>(DEPT_NOT_FOUND, HttpStatus.NOT_FOUND);
       } else {
-        return new ResponseEntity<>(departmentMapping.get(deptCode.toUpperCase(Locale.ENGLISH)).toString(),
-            HttpStatus.OK);
+        return new ResponseEntity<>(
+                departmentMapping.get(deptCode.toUpperCase(Locale.ENGLISH)).toString(),
+                HttpStatus.OK);
       }
 
     } catch (Exception e) {

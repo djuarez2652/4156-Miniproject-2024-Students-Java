@@ -62,10 +62,9 @@ public class DepartmentUnitTests {
 
   @Test
   public void toStringTest() {
-    String expectedResult = "COMS 1004: \n" +
-            "Instructor: Adam Cannon; Location: 417 IAB; Time: 11:40-12:55\n" +
-            "COMS 3134: \n" +
-            "Instructor: Brian Borowski; Location: 417 IAB; Time: 11:40-12:55\n";
+    String expectedResult = "COMS 1004: \nInstructor: Adam Cannon; "
+            + "Location: 417 IAB; Time: 11:40-12:55\nCOMS 3134: \n"
+            + "Instructor: Brian Borowski; Location: 417 IAB; Time: 11:40-12:55\n";
     assertEquals(expectedResult, testDepartment.toString());
   }
 
