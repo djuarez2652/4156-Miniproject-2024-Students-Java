@@ -1,8 +1,8 @@
 package dev.coms4156.project.individualproject;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -25,7 +25,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class IndividualProjectApplicationUnitTests {
 
   /**
-   * Runs before each test which sets up the mocks needed for tests.
+   * Runs before each test which sets up the mock needed for tests.
    */
   @BeforeEach
   public void setup() {
@@ -65,14 +65,14 @@ public class IndividualProjectApplicationUnitTests {
 
   @Test
   public void overrideDatabaseTest() {
-    boolean expectedSaveData = false;
     Boolean saveData;
-
-    IndividualProjectApplication.overrideDatabase(mockDatabase);
     saveData = getSaveData();
     if (saveData == null) {
       fail("Error in getting saveData value");
     }
+
+    boolean expectedSaveData = false;
+    IndividualProjectApplication.overrideDatabase(mockDatabase);
 
     assertEquals(mockDatabase, IndividualProjectApplication.myFileDatabase);
     assertEquals(expectedSaveData, saveData);

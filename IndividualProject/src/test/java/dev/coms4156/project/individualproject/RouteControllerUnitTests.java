@@ -1,12 +1,9 @@
 package dev.coms4156.project.individualproject;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +22,9 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration
 public class RouteControllerUnitTests {
 
+  /**
+   * Runs before each test which sets up the mock needed for tests.
+   */
   @BeforeEach
   public void setup() {
     mock = MockitoAnnotations.openMocks(this);
@@ -32,6 +32,9 @@ public class RouteControllerUnitTests {
     mockRouteController = new RouteController();
   }
 
+  /**
+   * Runs after each test is done which tears down mock safely.
+   */
   @AfterEach
   public void teardown() {
     if (mock != null) {
@@ -46,7 +49,8 @@ public class RouteControllerUnitTests {
 
   @Test
   public void indexTest() {
-    String expectedString = "Welcome, in order to make an API call direct your browser or Postman to an endpoint "
+    String expectedString = "Welcome, in order to make an API"
+            + "call direct your browser or Postman to an endpoint "
             + "\n\n This can be done using the following format: \n\n http:127.0.0"
             + ".1:8080/endpoint?arg=value";
     assertEquals(expectedString, mockRouteController.index());
@@ -117,13 +121,12 @@ public class RouteControllerUnitTests {
 
   @Test
   public void isCourseFullWithCourseThatExistsAndNotFullTest() {
-    boolean expectedResult = false;
     HashMap<String, Department> mockMapping = getMockDepartmentMapping();
     HashMap<String, Course> mockCourseMapping = mockMapping.get("COMS").getCourseSelection();
     mockCourseMapping.get("1000").setEnrolledStudentCount(1);
 
+    boolean expectedResult = false;
     when(mockDatabase.getDepartmentMapping()).thenReturn(mockMapping);
-
     ResponseEntity<?> actualResponse = mockRouteController.isCourseFull("COMS", 1000);
 
     assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
@@ -132,13 +135,12 @@ public class RouteControllerUnitTests {
 
   @Test
   public void isCourseFullWithCourseThatExistsAndIsFullTest() {
-    boolean expectedResult = true;
     HashMap<String, Department> mockMapping = getMockDepartmentMapping();
     Course mockCourse = mockMapping.get("COMS").getCourseSelection().get("1000");
     mockCourse.setEnrolledStudentCount(400);
 
+    boolean expectedResult = true;
     when(mockDatabase.getDepartmentMapping()).thenReturn(mockMapping);
-
     ResponseEntity<?> actualResponse = mockRouteController.isCourseFull("COMS", 1000);
 
     assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
