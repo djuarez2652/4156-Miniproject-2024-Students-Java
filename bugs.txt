@@ -1,8 +1,3 @@
-In this txt you should indicate
-
-
-
-
 Bugs found by static analyzer (PMD):
 
 ******* BUGS FOUND WITH PMD *******
@@ -27,7 +22,7 @@ Bugs found by static analyzer (PMD):
     Location: Department.java --> at the end of the file
     Fix: Change the return value of getDepartmentChair() to the departmentChair private field
 
-4. ******
+4.
     Rule: AvoidDuplicateLiterals
     Violation: The String literal "deptCode" appears 15 times in this file; the first occurrence is on line 40
     Description: Repeated String literal should be substituted by a variable
@@ -92,7 +87,7 @@ Bugs found by static analyzer (PMD):
     Location: Course.java --> getCourseLocation()
     Fix: Change the return value to this.courseLocation
 
-13. *****
+13.
     Issue: getInstructorName() returns courseLocation and not the instructorName
     Location: Course.java --> getInstructorName()
     Fix: Change the return value to this.instructorName
@@ -141,3 +136,28 @@ Bugs found by static analyzer (PMD):
     Issue: getCourseSelection returns internal representation of HashMap
     Location: Department.java --> getCourseSelection()
     Fix: Return a different version of the HashMap
+
+23.
+    Issue: retrieveDepartment returns incorrect HTTP status
+    Location: RouteController.java --> retrieveDepartment()
+    Fix: Change the HTTP status that is returned
+
+24.
+    Issue: retrieveCourse returns incorrect HTTP status
+    Location: RouteController.java --> retrieveCourse()
+    Fix: Change the HTTP status that is returned
+
+25.
+    Issue: getMajorCtFromDept returns a negative version of the number of majors
+    Location: RouteController.java --> getMajorCtFromDept()
+    Fix: Remove the negative from the return string
+
+26.
+    Issue: getMajorCtFromDept returns the wrong HTTP status code when department is not found
+    Location: RouteController.java --> getMajorCtFromDept()
+    Fix: Change HTTP status that is returned
+
+27.
+    Issue: index return string has a typo in the return value
+    Location: RouteController.java --> index()
+    Fix: Add two slashes in front of http:

@@ -25,7 +25,7 @@ public class RouteController {
   @GetMapping({"/", "/index", "/home"})
   public String index() {
     return "Welcome, in order to make an API call direct your browser or Postman to an endpoint "
-        + "\n\n This can be done using the following format: \n\n http:127.0.0"
+        + "\n\n This can be done using the following format: \n\n http://127.0.0"
         + ".1:8080/endpoint?arg=value";
   }
 
@@ -45,10 +45,10 @@ public class RouteController {
       departmentMapping = IndividualProjectApplication.myFileDatabase.getDepartmentMapping();
 
       if (!departmentMapping.containsKey(deptCode.toUpperCase(Locale.ENGLISH))) {
-        return new ResponseEntity<>(DEPT_NOT_FOUND, HttpStatus.OK);
+        return new ResponseEntity<>(DEPT_NOT_FOUND, HttpStatus.NOT_FOUND);
       } else {
         return new ResponseEntity<>(departmentMapping.get(deptCode.toUpperCase(Locale.ENGLISH)).toString(),
-            HttpStatus.NOT_FOUND);
+            HttpStatus.OK);
       }
 
     } catch (Exception e) {
@@ -86,7 +86,7 @@ public class RouteController {
           return new ResponseEntity<>(COURSE_NOT_FOUND, HttpStatus.NOT_FOUND);
         } else {
           return new ResponseEntity<>(coursesMapping.get(Integer.toString(courseCode)).toString(),
-              HttpStatus.FORBIDDEN);
+              HttpStatus.OK);
         }
 
       }
@@ -151,10 +151,10 @@ public class RouteController {
       if (doesDepartmentExists) {
         HashMap<String, Department> departmentMapping;
         departmentMapping = IndividualProjectApplication.myFileDatabase.getDepartmentMapping();
-        return new ResponseEntity<>("There are: " + -departmentMapping.get(deptCode)
+        return new ResponseEntity<>("There are: " + departmentMapping.get(deptCode)
             .getNumberOfMajors() + " majors in the department", HttpStatus.OK);
       }
-      return new ResponseEntity<>(DEPT_NOT_FOUND, HttpStatus.FORBIDDEN);
+      return new ResponseEntity<>(DEPT_NOT_FOUND, HttpStatus.NOT_FOUND);
     } catch (Exception e) {
       return handleException(e);
     }
